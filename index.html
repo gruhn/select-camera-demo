@@ -59,6 +59,9 @@ const selectCamera = async deviceId => {
     const videoEl = document.querySelector('video')
     videoEl.srcObject = stream
 
+    await new Promise(resolve => videoEl.addEventListener("loadeddata", resolve))
+    await new Promise(resolve => setTimeout(resolve, 500))
+
     const [ videoTrack ] = stream.getVideoTracks()
 
     renderOptions(
