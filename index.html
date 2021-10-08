@@ -60,7 +60,18 @@ const selectCamera = async deviceId => {
     })
 
     const videoEl = document.querySelector('video')
-    videoEl.srcObject = stream
+
+    if (videoEl.srcObject !== undefined) {
+      videoEl.srcObject = stream;
+    } else if (videoEl.mozSrcObject !== undefined) {
+      videoEl.mozSrcObject = stream;
+    } else if (window.URL.createObjectURL) {
+      videoEl.src = window.URL.createObjectURL(stream);
+    } else if (window.webkitURL) {
+      videoEl.src = window.webkitURL.createObjectURL(stream);
+    } else {
+      videoEl.src = stream;
+    }
 
     await new Promise(resolve => videoEl.addEventListener("loadeddata", resolve))
     await new Promise(resolve => setTimeout(resolve, 500))
