@@ -44,7 +44,10 @@ const selectCamera = async deviceId => {
       stream.getTracks().forEach(track => track.stop())
     }
     
-    const videoConstraints = {};
+    const videoConstraints = {
+      width: { min: 360, ideal: 640, max: 1920 },
+      height: { min: 240, ideal: 480, max: 1080 },
+    };
     if (!deviceId) {
        videoConstraints.facingMode = 'environment';
     } else {
