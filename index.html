@@ -10,7 +10,7 @@
 cameras: <br>
 <ul></ul>
 <br>
-<video autoplay muted playsinline></video>
+<video autoplay muted playsinline style="display: none"></video>
 
 <script>
 const listEl = document.querySelector("ul")
@@ -60,6 +60,9 @@ const selectCamera = async deviceId => {
     })
 
     const videoEl = document.querySelector('video')
+    setTimeout(() => {
+      videoEl.style.display = "initial"
+    }, 3000)
 
     if (videoEl.srcObject !== undefined) {
       videoEl.srcObject = stream;
